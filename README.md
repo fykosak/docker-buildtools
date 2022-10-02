@@ -4,9 +4,16 @@
 
 To run `make` from the current working directory, use:
 
-    docker run -it --rm -v "$PWD":/usr/src/local fykosak/buildtools make
+    docker run -it --rm -v "$PWD":/usr/src/local --user=$(id -u) fykosak/buildtools make
 
 Please keep in mind that the container has no access to files outside of the current working directory, hence `make` from subdirectories containing reference to the parent Makefile will not work.
+Instead you must use `make` with the directory argument:
+
+    docker run -it --rm -v "$PWD":/usr/src/local --user=$(id -u) fykosak/buildtools make -C leaflet1
+
+If you want to run `make` on only one file in subdirectory, append the filename at the end of the command, just like with regular `make`:
+
+    docker run -it --rm -v "$PWD":/usr/src/local --user=$(id -u) fykosak/buildtools make -C leaflet1 out/leaflet1.pdf
 
 ## Tags
 
@@ -16,5 +23,4 @@ Please keep in mind that the container has no access to files outside of the cur
 
 ## Known issues
 
-- All files are created with a `root` user.
 - Layer cache can be invalidated by commits from other branches.
