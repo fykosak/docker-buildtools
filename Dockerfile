@@ -11,7 +11,7 @@ RUN make -C fks-templates install DESTDIR=/usr/src/dist/
 RUN make -C fks-texmf install DESTDIR=/usr/src/dist/
 
 # Apply patches
-COPY ./patches/gloss-czech.ldf /usr/src/dist/root/texmf/tex/latex/polyglossia/gloss-czech.ldf
+COPY ./patches/gloss-czech.ldf /usr/src/dist/usr/share/texmf/tex/latex/polyglossia/gloss-czech.ldf
 COPY --chmod=777 ./patches/pdfbook /usr/src/dist/usr/local/bin/pdfbook
 COPY ./patches/ImageMagick-policy.xml /usr/src/dist/etc/ImageMagick-6/policy.xml
 
