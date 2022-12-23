@@ -1,4 +1,4 @@
-# Docker FKS buildtools ![Docker Image Size (tag)](https://img.shields.io/docker/image-size/fykosak/buildtools/latest) ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/fykosak/docker-buildtools/Build%20and%20deploy%20Docker%20image)
+# Docker FKS buildtools ![Docker Image Size (tag)](https://img.shields.io/docker/image-size/fykosak/buildtools/latest) ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/fykosak/docker-buildtools/docker-build.yml?branch=main)
 
 [🐋 hub.docker.com/r/fykosak/buildtools](https://hub.docker.com/r/fykosak/buildtools)
 
