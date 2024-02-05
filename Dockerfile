@@ -1,4 +1,4 @@
-FROM debian:bullseye-20220622-slim as builder
+FROM debian:bookworm-20240130-slim as builder
 
 RUN apt-get update && apt-get install -y make
 
@@ -16,11 +16,13 @@ COPY --chmod=777 ./patches/pdfbook /usr/src/dist/usr/local/bin/pdfbook
 COPY ./patches/ImageMagick-policy.xml /usr/src/dist/etc/ImageMagick-6/policy.xml
 
 # Keep the static version to not trigger cache invalidations
-FROM debian:bullseye-20220622-slim
+FROM debian:bookworm-20240130-slim
 
 # Install static files
 RUN apt-get update && apt-get install -y \
     bash \
+    bc\
+    fonts-liberation \
     fonts-sil-doulos \
     git \
     gnuplot \
@@ -33,26 +35,26 @@ RUN apt-get update && apt-get install -y \
     #pdfjam \
     perl \
     #pgf \
-    python \
+    python3 \
     sed \
-    #texlive-base \
-    #texlive-binaries \
-    #texlive-extra-utils \
-    #texlive-font-utils \
-    #texlive-fonts-extra \
-    #texlive-fonts-recommended \
-    #texlive-lang-czechslovak \
-    #texlive-lang-greek \
-    #texlive-latex-base \
-    #texlive-latex-extra \
-    #texlive-latex-recommended \
-    ##texlive-math-extra \
-    #texlive-metapost \
-    #texlive-pictures \
-    #texlive-pstricks \
-    #texlive-science \
-    #texlive-xetex \
-    texlive-full \
+    texlive-base \
+    texlive-binaries \
+    texlive-extra-utils \
+    texlive-font-utils \
+    texlive-fonts-extra \
+    texlive-fonts-recommended \
+    texlive-lang-czechslovak \
+    texlive-lang-greek \
+    texlive-latex-base \
+    texlive-latex-extra \
+    texlive-latex-recommended \
+    #texlive-math-extra \
+    texlive-metapost \
+    texlive-pictures \
+    texlive-pstricks \
+    texlive-science \
+    texlive-xetex \
+    #texlive-full \
     wget \
     xsltproc \
 && rm -rf /var/lib/apt/lists/*
