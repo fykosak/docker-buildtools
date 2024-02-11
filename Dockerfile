@@ -18,25 +18,8 @@ COPY ./patches/ImageMagick-policy.xml /usr/src/dist/etc/ImageMagick-6/policy.xml
 # Keep the static version to not trigger cache invalidations
 FROM debian:bookworm-20240130-slim
 
-# Install static files
+# Install LaTeX
 RUN apt-get update && apt-get install -y \
-    bash \
-    bc\
-    fonts-liberation \
-    fonts-sil-doulos \
-    git \
-    gnuplot \
-    imagemagick \
-    inkscape \
-    ipe \
-    libc-bin \
-    lmodern \
-    make \
-    #pdfjam \
-    perl \
-    #pgf \
-    python3 \
-    sed \
     texlive-base \
     texlive-binaries \
     texlive-extra-utils \
@@ -55,9 +38,34 @@ RUN apt-get update && apt-get install -y \
     texlive-science \
     texlive-xetex \
     #texlive-full \
+&& rm -rf /var/lib/apt/lists/*
+
+# Install static files
+RUN apt-get update && apt-get install -y \
+    bash \
+    bc\
+    fonts-liberation \
+    fonts-sil-doulos \
+    git \
+    gnuplot \
+    imagemagick \
+    inkscape \
+    ipe \
+    libc-bin \
+    lmodern \
+    make \
+    #pdfjam \
+    perl \
+    #pgf \
+    poppler-utils \
+    python3 \
+    sed \
     wget \
     xsltproc \
 && rm -rf /var/lib/apt/lists/*
+
+# generate font cache and make it writable
+RUN fc-cache -f -v && chmod -R 777 /var/cache/fontconfig/
 
 COPY --from=builder /usr/src/dist/ /
 
