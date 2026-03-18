@@ -1,4 +1,6 @@
-FROM debian:bookworm-20240130-slim as builder
+ARG DEBIAN_VERSION=trixie-20260316-slim
+
+FROM debian:${DEBIAN_VERSION} AS builder
 
 RUN apt-get update && apt-get install -y make
 
@@ -16,7 +18,7 @@ COPY --chmod=777 ./patches/pdfbook /usr/src/dist/usr/local/bin/pdfbook
 COPY ./patches/ImageMagick-policy.xml /usr/src/dist/etc/ImageMagick-6/policy.xml
 
 # Keep the static version to not trigger cache invalidations
-FROM debian:bookworm-20240130-slim
+FROM debian:${DEBIAN_VERSION}
 
 # Install LaTeX
 RUN apt-get update && apt-get install -y \

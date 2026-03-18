@@ -1,13 +1,17 @@
-\ProvidesFile{gloss-czech.ldf}[polyglossia: module for czech]
+% Language definition file (part of polyglossia v2.4 -- 2025/01/31)
+%
+\ProvidesFile{gloss-czech.ldf}[polyglossia: module for Czech]
 
 \PolyglossiaSetup{czech}{
   bcp47=cz,
+  bcp47-language=cz,
+  bcp47-region=CZ,
+  bcp47-script=Latn,
   hyphennames={czech},
   hyphenmins={2,2},
   langtag=CSY,
   frenchspacing=true,
-  fontsetup=true,
-}
+ }
 
 % BCP-47 compliant aliases
 \setlanguagealias*{czech}{cz}
@@ -16,26 +20,26 @@
   \RequirePackage{luavlna}
 \fi
 
-\define@boolkey{czech}[czech@]{babelshorthands}[true]{}
-
-\define@boolkey{czech}[czech@]{splithyphens}[true]{}
-
-\define@boolkey{czech}[czech@]{vlna}[true]{}
+\DeclareKeys[polyglossia/gloss/czech]
+  {
+    babelshorthands.if = czech@babelshorthands,
+    babelshorthands.default:n = true,
+    splithyphens.if = czech@splithyphens,
+    splithyphens.default:n = true,
+    vlna.if = czech@vlna,
+    vlna.default:n = true
+  }
 
 % Register default options
-\xpg@initialize@gloss@options{czech}{babelshorthands=false,splithyphens=true,vlna=true}
+\InitializeGlossOptions{czech}{babelshorthands=false,splithyphens=true,vlna=true}
 
 \ifsystem@babelshorthands
-  \setkeys{czech}{babelshorthands=true}
+  \SetGlossOptions{czech}{babelshorthands=true}
 \else
-  \setkeys{czech}{babelshorthands=false}
+  \SetGlossOptions{czech}{babelshorthands=false}
 \fi
 
-%\ifcsundef{initiate@active@char}{%
-%  \input{babelsh.def}%
-%  \initiate@active@char{"}%
-%  \shorthandoff{"}%
-%}{}
+%\InitializeBabelShorthands
 
 \def\czech@@splithyphen#1{%
   \def\czech@sh@tmp{%
@@ -59,7 +63,7 @@
 }
 
 \def\czech@shorthands{%
-  \bbl@activate{"}%
+  \xpg@activate@shorthands%
   \def\language@group{czech}%
   \declare@shorthand{czech}{"=}{\czech@splithyphen}%
   \declare@shorthand{czech}{"`}{„}%
@@ -69,7 +73,7 @@
 }
 
 \def\noczech@shorthands{%
-  \@ifundefined{initiate@active@char}{}{\bbl@deactivate{"}}%
+  \xpg@deactivate@shorthands%
 }
 
 \ifxetex
